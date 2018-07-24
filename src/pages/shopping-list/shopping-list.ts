@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'page-shopping-list',
@@ -12,6 +13,10 @@ export class ShoppingListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShoppingListPage');
+  }
+
+  onAddItem(form: NgForm) {
+    console.log(form);
   }
 
 }
