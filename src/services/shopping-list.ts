@@ -11,11 +11,11 @@ export class ShoppingListService {
     this.ingredients.push(...items);
   }
 
-  getItem() {
+  getItems() {
     return this.ingredients.slice();
   }
 
   removeItem(index: number) {
-    this.ingredients.slice(index, 1);
+    this.ingredients.splice(index, 1);
   }
 }

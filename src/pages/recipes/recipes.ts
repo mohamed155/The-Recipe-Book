@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {RecipePage} from "../recipe/recipe";
 
 @Component({
   selector: 'page-recipes',
@@ -12,6 +13,10 @@ export class RecipesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RecipesPage');
+  }
+
+  onNewRecipe() {
+    this.navCtrl.push(RecipePage, {mode: 'New'});
   }
 
 }
