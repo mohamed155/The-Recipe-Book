@@ -12,7 +12,7 @@ export class RecipesService {
     console.log(this.recipes);
   }
 
-  getRecipe() {
+  getRecipes() {
     return this.recipes.slice();
   }
 
