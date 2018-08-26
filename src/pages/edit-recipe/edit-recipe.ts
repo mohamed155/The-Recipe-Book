@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActionSheetController, AlertController, NavController, NavParams, ToastController} from 'ionic-angular';
+import {ActionSheetController, AlertController, NavController, NavParams} from 'ionic-angular';
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -14,7 +14,7 @@ export class EditRecipePage implements OnInit {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private actionSheetController: ActionSheetController,
-              private alertCtrl: AlertController, private toastCtrl: ToastController) {
+              private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -44,14 +44,7 @@ export class EditRecipePage implements OnInit {
           text: 'Remove all ingredients',
           role: 'destructive',
           handler: () => {
-            const fArray: FormArray = <FormArray>this.recipeForm.get('ingredients');
-            const len = fArray.length;
-            if (len > 0) {
-              for (let i = len-1; i >= 0; i--) {
-                fArray.removeAt(i);
-              }
-              this.showToast('All Items removed');
-            }
+
           }
         },
         {
@@ -81,12 +74,10 @@ export class EditRecipePage implements OnInit {
           text: 'Add',
           handler: data => {
             if (data.name.trim() == '' || data.name == null) {
-              this.showToast('Please Enter a valid value!');
               return;
             }
             (<FormArray>this.recipeForm.get('ingredients'))
               .push(new FormControl(data.name, Validators.required));
-            this.showToast('Item Added');
           }
         }
       ]
@@ -100,14 +91,6 @@ export class EditRecipePage implements OnInit {
       'difficulty': new FormControl('Medium', Validators.required),
       'ingredients': new FormArray([])
     });
-  }
-
-  private showToast(msg: string) {
-    this.toastCtrl.create({
-      message: msg,
-      duration: 1500,
-      position: 'bottom'
-    }).present();
   }
 
 }
