@@ -21,7 +21,7 @@ export class RecipesService {
                description: string,
                difficulty: string,
                ingredients: Ingredient[]) {
-    this.recipes[index] = new Recipe(title, description, difficulty, ingredients)
+    this.recipes[index] = new Recipe(title, description, difficulty, ingredients);
   }
 
   removeRecipe(index: number) {
