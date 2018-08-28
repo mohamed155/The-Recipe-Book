@@ -16,6 +16,7 @@ import {SigninPage} from "../pages/signin/signin";
 import {SignupPage} from "../pages/signup/signup";
 import {AuthService} from "../services/auth";
 import {SlOptionsPage} from "../pages/shopping-list/sl-options/sl-options";
+import {Http} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {SlOptionsPage} from "../pages/shopping-list/sl-options/sl-options";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShoppingListService,
     RecipesService,
-    AuthService
+    AuthService,
+    Http
   ]
 })
 export class AppModule {}
