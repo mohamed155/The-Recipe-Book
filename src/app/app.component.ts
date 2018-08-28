@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import {TabsPage} from "../pages/tabs/tabs";
 import {SigninPage} from "../pages/signin/signin";
 import {SignupPage} from "../pages/signup/signup";
+import {AuthService} from "../services/auth";
 @Component({
   templateUrl: 'app.html'
 })
@@ -14,13 +15,23 @@ export class MyApp {
   tabsPage:any = TabsPage;
   signinPage = SigninPage;
   signupPage = SignupPage;
+  isAuth = false;
   @ViewChild('nav') nav: NavController;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-              public menuCtrl: MenuController) {
+              public menuCtrl: MenuController, private authService: AuthService) {
     firebase.initializeApp({
       apiKey: "AIzaSyBc_uDEGpefgSFfOVs6bLLTyQLXwLr41O8",
       authDomain: "recipe-book-65ff1.firebaseapp.com"
+    });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.isAuth = true;
+        this.nav.setRoot(this.tabsPage);
+      } else {
+        this.isAuth = false;
+        this.nav.setRoot(this.signinPage);
+      }
     });
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -36,6 +47,7 @@ export class MyApp {
   }
 
   onLogout() {
-
+    this.authService.signout();
+    this.menuCtrl.close();
   }
 }
