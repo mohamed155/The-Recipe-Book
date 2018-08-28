@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {AlertController, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth";
 
@@ -10,14 +10,27 @@ import {AuthService} from "../../services/auth";
 export class SignupPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public authService: AuthService) {
+              public authService: AuthService, private loadingCtrl: LoadingController,
+              private alertCtrl: AlertController) {
   }
 
   onSignup(form: NgForm) {
+    const loading = this.loadingCtrl.create({
+      content: 'Signing you up..'
+    });
+    loading.present();
     this.authService.signup(form.value.email, form.value.password)
-      .then(data => console.log(data))
-      .catch(error => console.log(error))
-    ;
+      .then(data => {
+        loading.dismiss()
+      })
+      .catch(error => {
+        loading.dismiss();
+        this.alertCtrl.create({
+          title: 'Signup Failed!',
+          message: error.message,
+          buttons: ['Ok']
+        }).present();
+      });
   }
 
 }
