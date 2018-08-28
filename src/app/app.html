@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item icon-left (click)="onLoad(tabsPage)" *ngIf="isAuth">
+      <button ion-item icon-left (click)="onLoad(rootPage)" *ngIf="false">
         <ion-icon name="book"></ion-icon>
         Recipe Book
       </button>
@@ -26,4 +26,4 @@
   </ion-content>
 </ion-menu>
 
-<ion-nav [root]="tabsPage" #nav></ion-nav>
+<ion-nav [root]="rootPage" #nav></ion-nav>

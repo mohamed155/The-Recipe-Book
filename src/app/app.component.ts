@@ -12,7 +12,7 @@ import {AuthService} from "../services/auth";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  tabsPage:any = TabsPage;
+  rootPage:any = TabsPage;
   signinPage = SigninPage;
   signupPage = SignupPage;
   isAuth = false;
@@ -27,10 +27,10 @@ export class MyApp {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.isAuth = true;
-        this.nav.setRoot(this.tabsPage);
+        this.rootPage = TabsPage;
       } else {
         this.isAuth = false;
-        this.nav.setRoot(this.signinPage);
+        this.rootPage = SigninPage;
       }
     });
     platform.ready().then(() => {
