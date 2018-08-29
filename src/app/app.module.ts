@@ -16,7 +16,7 @@ import {SigninPage} from "../pages/signin/signin";
 import {SignupPage} from "../pages/signup/signup";
 import {AuthService} from "../services/auth";
 import {SlOptionsPage} from "../pages/shopping-list/sl-options/sl-options";
-import {Http} from "@angular/http";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import {Http} from "@angular/http";
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,8 +53,7 @@ import {Http} from "@angular/http";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ShoppingListService,
     RecipesService,
-    AuthService,
-    Http
+    AuthService
   ]
 })
 export class AppModule {}
