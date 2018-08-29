@@ -35,8 +35,9 @@ export class ShoppingListService {
   fetchList(token: string) {
     const userId = this.authService.getActiveUser().uid;
     return this.http.get('https://recipe-book-65ff1.firebaseio.com/' + userId + '/shopping-list.json?auth=' + token).map(response => response.json())
-      .do(data => {
-        this.ingredients = data;
+      .do((data: Ingredient[]) => {
+        if (data)
+          this.ingredients = data;
       });
   }
 }
