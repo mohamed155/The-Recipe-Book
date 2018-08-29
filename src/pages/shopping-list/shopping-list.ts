@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController, NavParams, PopoverController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {ShoppingListService} from "../../services/shopping-list";
@@ -19,7 +19,7 @@ export class ShoppingListPage {
               private authService: AuthService) {
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.loadItems();
   }
 
@@ -39,19 +39,34 @@ export class ShoppingListPage {
     popover.present({ev: event});
     popover.onDidDismiss(
       data => {
-        if (data.action == 'load') {
-
-        } else {
-          this.authService.getActiveUser().getIdToken()
-            .then(
-              (token: string) => {
-                this.slServive.storeList(token)
-                  .subscribe(
-                    () => console.log('success!'),
-                    error => console.log(error)
-                  );
-              }
-            );
+        if (data) {
+          if (data.action == 'load') {
+            this.authService.getActiveUser().getIdToken()
+              .then(
+                (token: string) => {
+                  this.slServive.fetchList(token)
+                    .subscribe(
+                      (list: Ingredient[]) => {
+                        if (list) {
+                          this.listItems = list;
+                        }
+                      },
+                      error => console.log(error)
+                    );
+                }
+              );
+          } else {
+            this.authService.getActiveUser().getIdToken()
+              .then(
+                (token: string) => {
+                  this.slServive.storeList(token)
+                    .subscribe(
+                      () => console.log('success!'),
+                      error => console.log(error)
+                    );
+                }
+              );
+          }
         }
       }
     );

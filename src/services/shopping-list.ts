@@ -31,4 +31,12 @@ export class ShoppingListService {
     return this.http.put('https://recipe-book-65ff1.firebaseio.com/' + userId + '/shopping-list.json?auth=' + token,
       this.ingredients).map(response => response.json());
   }
+
+  fetchList(token: string) {
+    const userId = this.authService.getActiveUser().uid;
+    return this.http.get('https://recipe-book-65ff1.firebaseio.com/' + userId + '/shopping-list.json?auth=' + token).map(response => response.json())
+      .do(data => {
+        this.ingredients = data;
+      });
+  }
 }
